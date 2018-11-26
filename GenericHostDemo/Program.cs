@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
 
@@ -35,14 +34,14 @@ namespace GenericHostDemo
                 var genericHost = CreateHostBuilder(args).Build();
 
                 await Task.WhenAll(
-                    webHost.RunAsync()
-                    ,
                     genericHost.RunAsync()
+                    ,
+                    webHost.RunAsync()
                 );
             }
             //catch (OperationCanceledException)
             //{
-            //    //Press Ctrl+C shutdown
+            //    //If only have Generic Host, Press Ctrl+C shutdown will trigger OperationCanceledException
             //    Log.Information("Server is shutting down");
             //}
             catch (Exception ex)
