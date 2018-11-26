@@ -5,11 +5,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using GenericHostDemo.Models;
+using Microsoft.Extensions.Logging;
 
 namespace GenericHostDemo.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ILogger<HomeController> _logger;
+
+        public HomeController(ILoggerFactory loggerFactory)
+        {
+            _logger = loggerFactory.CreateLogger<HomeController>();
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -18,6 +26,7 @@ namespace GenericHostDemo.Controllers
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
+            _logger.LogInformation("About Page clicked");
 
             return View();
         }
